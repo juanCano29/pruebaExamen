@@ -33,8 +33,30 @@
       </tbody>
     </table>
   </div>
+  <hr>
+  <div>
+    <table id="dbTable">
+      <thead>
+        <tr>
+          <th>imdbID</th>
+          <th>Title</th>
+          <th>Type</th>
+          <th>Year</th>
+          <th>Poster</th>
+        </tr>
+      </thead>
+      <tbody >
+        <tr v-for="movie in movies">
+            <td>{{movie.imdbID}}</td>
+            <td>{{movie.Title}}</td>
+            <td>{{movie.Typep}}</td>
+            <td>{{movie.Yearp}}</td>
+            <td>{{moive.Poster}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
   <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
   <script src="assets/js/app.js"></script>
 </body>
-
 </html>
