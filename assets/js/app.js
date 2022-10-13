@@ -30,18 +30,19 @@ new Vue({
   }
 })
 
-new Vue({
+let data = new Vue({
   el: '#dbTable',
   data: {
     movies: []
   },
   mounted() {
-      fetch("routes/allPeliculas.php",{
+      fetch("routes/allPeliculas.php", { 
         method: "POST"
       })
         .then(async response => {
-            console.log("response",await response.json());
+            console.log("response", await response.json());
         }).catch(error => {
+
         })
 
   },
