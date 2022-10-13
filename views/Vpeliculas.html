@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>peliculas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <div id="buscar">
+    <input v-model="name">
+    <button v-on:click="buscarPelicula">Buscar</button>
+    <button id="btn-agregar" v-on:click="agregarPelicula"  >Guardar</button>
+    <table>
+      <thead>
+        <tr>
+          <th >imdbID</th>
+          <th >Title</th>
+          <th >Type</th>
+          <th >Year</th>
+          <th >Poster</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr v-for="pelicula in peliculas">
+          <td>{{pelicula.imdbID}}</td>
+          <td>{{pelicula.Title}}</td>
+          <td>{{pelicula.Type}}</td>
+          <td>{{pelicula.Year}}</td>
+          <td>{{pelicula.Poster}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+
+</html>

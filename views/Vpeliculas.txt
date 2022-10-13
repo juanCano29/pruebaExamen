@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>peliculas</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body>
+  <h1 id="app">{{ titulo }}</h1>
+  <div id="app2">
+
+    <h3 v-bind:title="message"> este es el segundo titulo </h3>
+  </div>
+  <div id="app3">
+    <ul>
+      <li v-for="todo in todos">
+        <a href="#"> {{todo.text}}</a>
+      </li>
+    </ul>
+  </div>
+  <div id="app4">
+    <p>{{message}}</p>
+    <button v-on:click="mensajeinvertido">invertir</button>
+  </div>
+  <div id="app5">
+    <p>{{message}}</p>
+    <input v-model="message">
+  </div>
+  <ul id="app6">
+    <todo-item></todo-item>
+  </ul>
+  <div id="app7">
+    <button-count></button-count>
+  </div>
+  <div id="example">
+      <p>mensaje original: "{{message}}"</p>
+      <p>mensaje invertido computado: "{{ reversedMessage}}"</p>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
