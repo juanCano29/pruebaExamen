@@ -37,6 +37,7 @@
           </tr>
         </thead>
         <tbody>
+
           <tr v-for="pelicula in peliculas">
             <td>{{pelicula.imdbID}}</td>
             <td>{{pelicula.Title}}</td>
@@ -58,9 +59,15 @@
             <th>Type</th>
             <th>Year</th>
             <th>Poster</th>
+            <th hidden><input v-model="listaCantidad"></th>
           </tr>
         </thead>
         <tbody id="tbod">
+          <tr>
+            <td>
+                <input type="text">
+            </td>
+          </tr>
         </tbody>
       </table>
       <nav aria-label="Page navigation example ">
