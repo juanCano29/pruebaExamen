@@ -14,5 +14,21 @@
        $peliculas = Pelicula::find($id);
        return $peliculas;
      }
+     public static function get_whereLike_imdbID(){
+      $peliculas = Pelicula::where('imdbID', 'like', '%2%')->get();
+      return $peliculas;
+     }
+     public static function get_whereLike_Title(){
+      $peliculas = Pelicula::where('Title', 'like', '%ha%')->get();
+      return $peliculas;
+     }
+     public static function get_whereLike_Type(){
+      $peliculas = Pelicula::where('Typep', 'like', '%movie%')->get();
+      return $peliculas;
+     }
+     public static function get_whereLike_Year(){
+      $peliculas = Pelicula::where('Yearp', 'like', '%11%')->get();
+      return $peliculas;
+     }
   }
 ?>
