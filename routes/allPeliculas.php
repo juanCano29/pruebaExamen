@@ -5,5 +5,6 @@
    new Database();
    use Controllers\Peliculas;
    $peliculas = Peliculas::get__peliculas();
+   echo $peliculas;
    return $peliculas;
 ?>

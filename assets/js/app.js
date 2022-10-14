@@ -30,21 +30,44 @@ new Vue({
   }
 })
 
-let data = new Vue({
+let dbTable = new Vue({
   el: '#dbTable',
   data: {
-    movies: []
+      movies: [],
+      elementosPorPagina: 0,
+      
   },
   mounted() {
-      fetch("routes/allPeliculas.php", { 
+    this.llenarTabla();
+    console.log('numero de paginas',  this.elementosPorPagina);
+  },
+  methods: { 
+    llenarTabla(){
+      fetch("routes/allPeliculas.php", {
         method: "POST"
       })
         .then(async response => {
-            console.log("response", await response.json());
-        }).catch(error => {
-
+              let dat  = await response.json();
+              let tabla = document.getElementById('tbod');
+              let infoTabla = '';
+              for (let i = 0; i < dat.length; i++) {
+                  infoTabla += `
+                        <tr> 
+                            <td>${dat[i]["imdbID"]}</td>
+                            <td>${dat[i]["Title"]}</td>
+                            <td>${dat[i]["Typep"]} </td>
+                            <td>${dat[i]["Yearp"]} </td>
+                            <td>${dat[i]["Poster"]} </td>
+                        </tr>
+                  `;
+              }
+              tabla.innerHTML = infoTabla;
+              this.elementosPorPagina = dat.length;
         })
-
-  },
+        .catch(error => {
+            console.log(error);
+        })
+    }
+  }
 
 })
