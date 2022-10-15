@@ -10,24 +10,20 @@
         $peliculas = Pelicula::all();
         return $peliculas;
      }
-     public static function get_where_pelicula($id){
-       $peliculas = Pelicula::find($id);
-       return $peliculas;
-     }
-     public static function get_whereLike_imdbID(){
-      $peliculas = Pelicula::where('imdbID', 'like', '%2%')->get();
+     public static function get_whereLike_imdbID($imdbID){
+      $peliculas = Pelicula::where('imdbID', 'like', '%'.$imdbID.'%')->get();
       return $peliculas;
      }
-     public static function get_whereLike_Title(){
-      $peliculas = Pelicula::where('Title', 'like', '%ha%')->get();
+     public static function get_whereLike_Title($Title){
+      $peliculas = Pelicula::where('Title', 'like', '%'.$Title.'%')->get();
       return $peliculas;
      }
-     public static function get_whereLike_Type(){
-      $peliculas = Pelicula::where('Typep', 'like', '%movie%')->get();
+     public static function get_whereLike_Type($Typep){
+      $peliculas = Pelicula::where('Typep', 'like', '%'.$Typep.'%')->get();
       return $peliculas;
      }
-     public static function get_whereLike_Year(){
-      $peliculas = Pelicula::where('Yearp', 'like', '%11%')->get();
+     public static function get_whereLike_Year($Yearp){
+      $peliculas = Pelicula::where('Yearp', 'like', '%'.$Yearp.'%')->get();
       return $peliculas;
      }
   }

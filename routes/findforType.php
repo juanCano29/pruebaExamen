@@ -4,6 +4,8 @@
   use Models\Database;
   new Database();
   use Controllers\Peliculas;
-  $peliculas = Peliculas::get_whereLike_Type();
+  $data = file_get_contents('php://input');
+  $data = json_decode($data, true);
+  $peliculas = Peliculas::get_whereLike_Type($data['Type']);
   echo $peliculas;
 ?>

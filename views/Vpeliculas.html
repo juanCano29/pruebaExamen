@@ -43,7 +43,9 @@
             <td>{{pelicula.Title}}</td>
             <td>{{pelicula.Type}}</td>
             <td>{{pelicula.Year}}</td>
-            <td>{{pelicula.Poster}}</td>
+            <td>
+              <img v-bind:src="pelicula.Poster"  height="300px" width="100px" alt="">
+              </td>
           </tr>
         </tbody>
       </table>
