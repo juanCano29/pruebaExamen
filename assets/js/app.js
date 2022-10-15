@@ -27,7 +27,7 @@ let dbTable = new Vue({
                             <td>${dat[i]["Title"]}</td>
                             <td>${dat[i]["Typep"]} </td>
                             <td>${dat[i]["Yearp"]} </td>
-                            <td>${dat[i]["Poster"]} </td>
+                            <td> <img src="${dat[i]["Poster"]}" height="150px" width="100"> </td>
                         </tr>
                   `;
               }
