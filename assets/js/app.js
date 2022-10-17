@@ -6,7 +6,7 @@ new Vue({
     inputTitle: "",
     inputType: "",
     inputYear: "",
-    elementosPorPagina: 10,
+    elementosPorPagina: 5,
     resultadoCantidad: 0,
     paginaActual: 1,
     datosPaginados: [],
@@ -14,8 +14,8 @@ new Vue({
     peliculasDB: []
   },
   mounted() {
-    this.llenarTablaDB();
     this.getDataPagina(1);
+    this.llenarTablaDB();
   },
   methods: {
     // logica de las tablas
@@ -24,8 +24,8 @@ new Vue({
         .then(async response => {
           const data = await response.json();
           this.peliculas = data["Search"];
-          this.resultadoCantidad =this.peliculas.length; 
         })
+
         .catch(error => {
           this.errorMessage = error;
           console.error('hay un error', error);
@@ -50,8 +50,7 @@ new Vue({
         .then(async response => {
           const data = await response.json();
           this.peliculasDB = data;
-          this.resultadoCantidad = data.length;
-          console.log('data ', this.resultadoCantidad);
+          this.resultadoCantidad = this.peliculasDB;
         }).catch(error => {
           console.log("Error ", error)
         })
@@ -114,15 +113,14 @@ new Vue({
     },
     // Logica Paginado
     totalPaginas() {
-			return Math.ceil(this.peliculas.length / this.elementosPorPagina);
+			   return Math.ceil(this.resultadoCantidad.length / this.elementosPorPagina);
 		},
 		getDataPagina(noPagina) {
-      console.log("data ", this.resultadoCantidad);
-			this.paginaActual = noPagina;
-			this.datosPaginados = [];
+			 this.paginaActual = noPagina;
+			 this.datosPaginados = [];
 			let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina;
-			let fin = noPagina * this.elementosPorPagina;
-			this.datosPaginados = this.peliculas.slice(ini, fin);
+			 let fin = noPagina * this.elementosPorPagina;
+			 this.peliculasDB = this.peliculasDB.slice(ini, fin);
 		},
 		getPreviousPage() {
 			if (this.paginaActual > 1) {
