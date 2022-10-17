@@ -6,7 +6,7 @@ new Vue({
     inputTitle: "",
     inputType: "",
     inputYear: "",
-    elementosPorPagina: 5,
+    elementosPorPagina: 2,
     resultadoCantidad: 0,
     paginaActual: 1,
     datosPaginados: [],
@@ -15,7 +15,6 @@ new Vue({
   },
   mounted() {
     this.getDataPagina(1);
-    this.llenarTablaDB();
   },
   methods: {
     // logica de las tablas
@@ -65,7 +64,7 @@ new Vue({
         body: JSON.stringify(data)
       }).then(async response => {
         const data = await response.json();
-          this.peliculasDB = data;
+          this.datosPaginados = data;
       }).catch(error => {
       })
     },
@@ -78,7 +77,7 @@ new Vue({
         body: JSON.stringify(data)
       }).then(async response => {
         const data = await response.json();
-        this.peliculasDB = data;
+        this.datosPaginados = data;
       }).catch(error => {
 
       })
@@ -92,7 +91,7 @@ new Vue({
         body: JSON.stringify(data)
       }).then(async response => {
         const data = await response.json();
-        this.peliculasDB = data;
+        this.datosPaginados = data;
       }).catch(error => {
 
       })
@@ -106,7 +105,7 @@ new Vue({
         body: JSON.stringify(data)
       }).then(async response => {
         const data = await response.json();
-        this.peliculasDB = data;
+        this.datosPaginados = data;
       }).catch(error => {
 
       })
@@ -116,11 +115,12 @@ new Vue({
 			   return Math.ceil(this.resultadoCantidad.length / this.elementosPorPagina);
 		},
 		getDataPagina(noPagina) {
+      this.llenarTablaDB();
 			 this.paginaActual = noPagina;
 			 this.datosPaginados = [];
 			let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina;
 			 let fin = noPagina * this.elementosPorPagina;
-			 this.peliculasDB = this.peliculasDB.slice(ini, fin);
+			 this.datosPaginados = this.peliculasDB.slice(ini, fin);
 		},
 		getPreviousPage() {
 			if (this.paginaActual > 1) {

@@ -69,7 +69,7 @@
             <td> <input v-model="inputYear" v-on:keyup="buscarPorYear" class="form-control"></td>
             <td></td>
           </tr>
-           <tr v-for="peliculadb in peliculasDB ">
+           <tr v-for="peliculadb in datosPaginados ">
              <td>{{peliculadb.imdbID}}</td>
              <td>{{peliculadb.Title}}</td>
              <td>{{peliculadb.Typep}}</td>
