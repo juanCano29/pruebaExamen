@@ -53,10 +53,10 @@
       <table class="table table-dark table-striped">
         <thead>
            <tr >
-             <th>imdbID <input v-model="inputImdbID" class="form-control"></th>
-             <th>Title <input v-model="inputTitle" class="form-control"></th>
-             <th>Type <input v-model="inputType" class="form-control"></th>
-             <th>Year <input v-model="inputYear" class="form-control"></th>
+             <th>imdbID <input v-model="inputImdbID" v-on:keyup="buscarPorimdbID" class="form-control"></th>
+             <th>Title <input v-model="inputTitle" v-on:keyup="buscarPorTitle" class="form-control"></th>
+             <th>Type <input v-model="inputType" v-on:keyup="buscarPorType" class="form-control"></th>
+             <th>Year <input v-model="inputYear" v-on:keyup="buscarPorYear" class="form-control"></th>
              <th>Poster</th>           
            </tr>
         </thead>
