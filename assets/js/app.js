@@ -1,9 +1,11 @@
-
-
 new Vue({
   el: '#buscar',
   data: {
     name: "",
+    inputImdbID: '',
+    inputTitle: '',
+    inputType: '',
+    inputYear: '',
     peliculas: [],
     peliculasDB: []
   },
@@ -28,7 +30,6 @@ new Vue({
         body: JSON.stringify(this.peliculas)
 
       }).then(async response => {
-
           this.llenarTablaDB();
       }).catch(error => {
       })

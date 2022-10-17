@@ -53,11 +53,11 @@
       <table class="table table-dark table-striped">
         <thead>
            <tr >
-             <th>imdbID <input type="text" class="form-control"></th>
-             <th>Title <input type="text" class="form-control"></th>
-             <th>Type <input type="text" class="form-control"></th>
-             <th>Year <input type="text" class="form-control"></th>
-             <th>Poster <input type="text" class="form-control"></th>           
+             <th>imdbID <input v-model="inputImdbID" class="form-control"></th>
+             <th>Title <input v-model="inputTitle" class="form-control"></th>
+             <th>Type <input v-model="inputType" class="form-control"></th>
+             <th>Year <input v-model="inputYear" class="form-control"></th>
+             <th>Poster</th>           
            </tr>
         </thead>
         <tbody>
