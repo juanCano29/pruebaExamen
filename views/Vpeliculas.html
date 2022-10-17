@@ -44,11 +44,34 @@
             <td>{{pelicula.Type}}</td>
             <td>{{pelicula.Year}}</td>
             <td>
-              <img v-bind:src="pelicula.Poster"  height="300px" width="100px" alt="">
-              </td>
+              <img v-bind:src="pelicula.Poster"  height="150px" width="100px" alt="">
+            </td>
           </tr>
         </tbody>
       </table>
+      <br><br>
+      <table class="table table-dark table-striped">
+        <thead>
+           <tr >
+             <th>imdbID <input type="text" class="form-control"></th>
+             <th>Title <input type="text" class="form-control"></th>
+             <th>Type <input type="text" class="form-control"></th>
+             <th>Year <input type="text" class="form-control"></th>
+             <th>Poster <input type="text" class="form-control"></th>           
+           </tr>
+        </thead>
+        <tbody>
+           <tr v-for="peliculadb in peliculasDB ">
+             <td>{{peliculadb.imdbID}}</td>
+             <td>{{peliculadb.Title}}</td>
+             <td>{{peliculadb.Typep}}</td>
+             <td>{{peliculadb.Yearp}}</td>
+             <td>
+                <img v-bind:src="peliculadb.Poster" height="150px" width="100px">
+             </td>
+           </tr>
+        </tbody>
+     </table>
     </div>
   </div>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"

@@ -1,14 +1,14 @@
+
+
 new Vue({
   el: '#buscar',
   data: {
     name: "",
-    peliculas: []
+    peliculas: [],
+    peliculasDB: []
   },
   mounted() {
-    this.buscarPorimdbID();
-    this.buscarPorTitle();
-    this.buscarPorType();
-    this.buscarPorYear();
+    this.llenarTablaDB();
   },
   methods: {
     buscarPelicula: function () {
@@ -28,59 +28,22 @@ new Vue({
         body: JSON.stringify(this.peliculas)
 
       }).then(async response => {
+
+          this.llenarTablaDB();
       }).catch(error => {
       })
 
     },
-    buscarPorimdbID: function (){
-      let datos = {
-        'imdbID': 2
-      };
-       fetch("routes/findforimdbID.php", {
-        method: "POST",
-        body: JSON.stringify(datos)
-      }).then(async response => {
-      }).catch(error => {
-      });
-    },
-    buscarPorTitle: function() {
-      let datos = {
-        'Title': 'ha'
-      };
-      fetch("routes/findforTitle.php", { 
-          method: "POST",
-          body: JSON.stringify(datos)
-      }).then(async response => { 
-
-      }).catch(error => {
-
+    llenarTablaDB(){ 
+      fetch("routes/allPeliculas.php", {
+        method: 'POST'
       })
-    },
-    buscarPorType: function(){
-      let datos = { 
-        'Type': 'mo'
-      };
-      fetch("routes/findforType.php", {
-        method: 'POST',
-        body: JSON.stringify(datos)
-      }).then(async response => {
-
+      .then(async response => {
+          const data = await response.json();
+          this.peliculasDB = data;
       }).catch(error => {
-
+        console.log("Error ",error);
       })
-    },
-    buscarPorYear: function(){
-      let datos = {
-        'Year': '11'
-      };
-      fetch("routes/findforYear.php", { 
-          method: 'POST',
-          body: JSON.stringify(datos)
-      }).then(async response => {
-
-      }).catch(error => {
-
-      });
     }
   }
 })
