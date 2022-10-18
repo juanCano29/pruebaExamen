@@ -6,7 +6,7 @@ new Vue({
     inputTitle: "",
     inputType: "",
     inputYear: "",
-    elementosPorPagina: 2,
+    elementosPorPagina: 10,
     resultadoCantidad: 0,
     paginaActual: 1,
     datosPaginados: [],
@@ -37,7 +37,7 @@ new Vue({
         body: JSON.stringify(this.peliculas)
 
       }).then(async response => {
-        this.llenarTablaDB()
+        this.llenarTablaDB(1)
       }).catch(error => {
       })
 
@@ -47,16 +47,16 @@ new Vue({
         method: 'POST'
       })
         .then(async response => {
-          const data = await response.json();
-          this.datosPaginados = [];
-          this.peliculasDB = data;
-          this.resultadoCantidad = this.peliculasDB.length;
-          this.paginaActual = noPagina;
-          let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina;
-          let fin = noPagina * this.elementosPorPagina;
-          this.datosPaginados = this.peliculasDB.slice(ini, fin);
+          const data = await response.json()
+          this.datosPaginados = []
+          this.peliculasDB = data
+          this.resultadoCantidad = this.peliculasDB.length
+          this.paginaActual = noPagina
+          let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina
+          let fin = noPagina * this.elementosPorPagina
+          this.datosPaginados = this.peliculasDB.slice(ini, fin)
         }).catch(error => {
-          console.log("Error ", error);
+          console.log("Error ", error)
         })
     },
     // Logica de los filtros
@@ -68,14 +68,14 @@ new Vue({
         method: "POST",
         body: JSON.stringify(data)
       }).then(async response => {
-        const data = await response.json();
-        this.datosPaginados = [];
-        this.peliculasDB = data;
-        this.datosPaginados = data;
-        this.resultadoCantidad = this.datosPaginados.length;
+        const data = await response.json()
+        this.datosPaginados = data
+        this.resultadoCantidad = this.datosPaginados.length
+
       }).catch(error => {
       })
     },
+
     buscarPorTitle() {
       const data = {
         'Title': this.inputTitle
@@ -84,9 +84,9 @@ new Vue({
         method: "POST",
         body: JSON.stringify(data)
       }).then(async response => {
-        const data = await response.json();
-        this.datosPaginados = data;
-        this.resultadoCantidad = this.datosPaginados.length;
+        const data = await response.json()
+        this.datosPaginados = data
+        this.resultadoCantidad = this.datosPaginados.length
       }).catch(error => {
 
       })
@@ -99,9 +99,9 @@ new Vue({
         method: 'POST',
         body: JSON.stringify(data)
       }).then(async response => {
-        const data = await response.json();
-        this.datosPaginados = data;
-        this.resultadoCantidad = this.datosPaginados.length;
+        const data = await response.json()
+        this.datosPaginados = data
+        this.resultadoCantidad = this.datosPaginados.length
       }).catch(error => {
 
       })
@@ -114,28 +114,28 @@ new Vue({
         method: 'POST',
         body: JSON.stringify(data)
       }).then(async response => {
-        const data = await response.json();
-        this.datosPaginados = data;
-        this.resultadoCantidad = this.datosPaginados.length;
+        const data = await response.json()
+        this.datosPaginados = data
+        this.resultadoCantidad = this.datosPaginados.length
       }).catch(error => {
 
       })
     },
     // Logica Paginado
     totalPaginas() {
-      return Math.ceil(this.resultadoCantidad / this.elementosPorPagina);
+      return Math.ceil(this.resultadoCantidad / this.elementosPorPagina)
     },
     getPreviousPage() {
       if (this.paginaActual > 1) {
-        this.paginaActual--;
+        this.paginaActual--
       }
-      this.llenarTablaDB(this.paginaActual);
+      this.llenarTablaDB(this.paginaActual)
     },
     getNextPage() {
       if (this.paginaActual < this.totalPaginas()) {
-        this.paginaActual++;
+        this.paginaActual++
       }
-      this.llenarTablaDB(this.paginaActual);
+      this.llenarTablaDB(this.paginaActual)
     },
     isActive(noPagina) {
       return noPagina == this.paginaActual ? 'active' : ''
