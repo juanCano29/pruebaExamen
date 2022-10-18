@@ -83,18 +83,18 @@
      <nav aria-label="Page navigation example">
       <ul class="pagination justify-content-center">
         <li class="page-item" v-on:click="getPreviousPage()">
-          <a class="page-link" href="#">Previous</a>
+          <a class="page-link" href="#">Anterior</a>
         </li>
         <li
           v-for="pagina in totalPaginas()"
-          v-on:click="getDataPagina(pagina)"
+          v-on:click="llenarTablaDB(pagina)"
           v-bind:class="isActive(pagina)"
           class="page-item"
         >
           <a class="page-link" href="#">{{pagina}}</a>
         </li>
         <li class="page-item" v-on:click="getNextPage()">
-          <a class="page-link" href="#">Next</a>
+          <a class="page-link" href="#">Siguiente</a>
         </li>
       </ul>
     </nav>
