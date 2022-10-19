@@ -2,116 +2,96 @@
 <html lang="en">
 
 <head>
-  <title>peliculas</title>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
-    integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <title>peliculas</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous"/>
 </head>
 
 <body>
-  <div class="container" style="margin-top: 50px;">
+<div class="container" style="margin-top: 50px;">
     <div id="buscar">
-      <div class="row g-3 justify-content-center">
-        <div class="col-auto">
-          <label for="inputName" class="form-label">Nombre de la pelicula:</label>
+        <div class="row g-3 justify-content-center">
+            <div class="col-auto">
+                <label for="inputName" class="form-label">Nombre de la pelicula:</label>
+            </div>
+            <div class="col-auto">
+                <input v-model="name" id="inputName" class="form-control">
+            </div>
+            <div class="col-auto">
+                <button v-on:click="buscarPelicula" class="btn btn-primary">Buscar</button>
+                <button class="btn btn-success" id="btn-agregar" v-on:click="agregarPelicula">Guardar</button>
+            </div>
         </div>
-        <div class="col-auto">
-          <input v-model="name" id="inputName" class="form-control">
-        </div>
-        <div class="col-auto">
-          <button v-on:click="buscarPelicula" class="btn btn-primary">Buscar</button>
-          <button class="btn btn-success" id="btn-agregar" v-on:click="agregarPelicula">Guardar</button>
-        </div>
-      </div>
-      <br><br>
-      <h1 style="text-align: center;">Tabla API</h1>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">imdbID</th>
-            <th scope="col">Title</th>
-            <th scope="col">Type</th>
-            <th scope="col">Year</th>
-            <th scope="col">Poster</th>
-          </tr>
-        </thead>
-        <tbody>
-
-          <tr v-for="pelicula in peliculas">
-            <td>{{pelicula.imdbID}}</td>
-            <td>{{pelicula.Title}}</td>
-            <td>{{pelicula.Type}}</td>
-            <td>{{pelicula.Year}}</td>
-            <td>
-              <img v-bind:src="pelicula.Poster" height="150px" width="100px" alt="">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <br><br>
-      <h1 style="text-align: center;">Tabla DB</h1>
-      <table class="table table-dark table-striped">
-        <thead>
-          <tr>
-            <th>imdbID</th>
-            <th>Title </th>
-            <th>Type </th>
-            <th>Year</th>
-            <th>Poster</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr>
-            <td><input v-model="inputImdbID" v-on:keyup="buscarPorimdbID" class="form-control"></td>
-            <td><input v-model="inputTitle" v-on:keyup="buscarPorTitle" class="form-control"></td>
-            <td><input v-model="inputType" v-on:keyup="buscarPorType" class="form-control"></td>
-            <td> <input v-model="inputYear" v-on:keyup="buscarPorYear" class="form-control"></td>
-            <td></td>
-          </tr>
-          <tr v-for="peliculadb in datosPaginados ">
-            <td>{{peliculadb.imdbID}}</td>
-            <td>{{peliculadb.Title}}</td>
-            <td>{{peliculadb.Typep}}</td>
-            <td>{{peliculadb.Yearp}}</td>
-            <td>
-              <img v-bind:src="peliculadb.Poster" height="150px" width="100px">
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <div class="row g-2">
+        <br><br>
+        <h1 style="text-align: center;">Tabla API</h1>
+        <table-api v-bind:peliculas="peliculas"></table-api>
+        <br><br>
+        <h1 style="text-align: center;">Tabla DB</h1>
+        <table class="table table-dark table-striped">
+            <thead>
+            <tr>
+                <th>imdbID</th>
+                <th>Title</th>
+                <th>Type</th>
+                <th>Year</th>
+                <th>Poster</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td><input v-model="inputImdbID" v-on:keyup="buscarPorimdbID" class="form-control"></td>
+                <td><input v-model="inputTitle" v-on:keyup="buscarPorTitle" class="form-control"></td>
+                <td><input v-model="inputType" v-on:keyup="buscarPorType" class="form-control"></td>
+                <td><input v-model="inputYear" v-on:keyup="buscarPorYear" class="form-control"></td>
+                <td></td>
+            </tr>
+            <tr v-for="peliculadb in datosPaginados ">
+                <td>{{peliculadb.imdbID}}</td>
+                <td>{{peliculadb.Title}}</td>
+                <td>{{peliculadb.Typep}}</td>
+                <td>{{peliculadb.Yearp}}</td>
+                <td>
+                    <img v-bind:src="peliculadb.Poster" height="150px" width="100px">
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div class="row g-2">
             Mostrando del 1 al {{elementosPorPagina}} de un total de {{resultadoCantidad}} resultados
-        <div class=" col-md-1">
-          <select class="form-select justify-content-end" v-model="elementosPorPagina" aria-label="Default select example">
-            <option>10</option>
-            <option>30</option>
-            <option>50</option>
-          </select>
+            <div class=" col-md-1">
+                <select class="form-select justify-content-end" v-model="elementosPorPagina"
+                        aria-label="Default select example">
+                    <option>10</option>
+                    <option>30</option>
+                    <option>50</option>
+                </select>
+            </div>
+            <nav aria-label="Page navigation example" class="col-md">
+                <ul class="pagination justify-content-end">
+                    <li class="page-item" v-on:click="getPreviousPage()">
+                        <a class="page-link" href="#">Anterior</a>
+                    </li>
+                    <li v-for="pagina in totalPaginas()" v-on:click="llenarTablaDB(pagina)"
+                        v-bind:class="isActive(pagina)"
+                        class="page-item">
+                        <a class="page-link" href="#">{{pagina}}</a>
+                    </li>
+                    <li class="page-item" v-on:click="getNextPage()">
+                        <a class="page-link" href="#">Siguiente</a>
+                    </li>
+                </ul>
+            </nav>
         </div>
-        <nav aria-label="Page navigation example" class="col-md">
-          <ul class="pagination justify-content-end">
-            <li class="page-item" v-on:click="getPreviousPage()">
-              <a class="page-link" href="#">Anterior</a>
-            </li>
-            <li v-for="pagina in totalPaginas()" v-on:click="llenarTablaDB(pagina)" v-bind:class="isActive(pagina)"
-              class="page-item">
-              <a class="page-link" href="#">{{pagina}}</a>
-            </li>
-            <li class="page-item" v-on:click="getNextPage()">
-              <a class="page-link" href="#">Siguiente</a>
-            </li>
-          </ul>
-        </nav>
-      </div>
-      <br><br><br>
+        <br><br><br>
     </div>
-  </div>
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
-    integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
-    crossorigin="anonymous"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-  <script src="assets/js/app.js"></script>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+<script src="assets/js/app.js"></script>
 </body>
 
 </html>
