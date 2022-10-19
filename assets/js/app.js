@@ -1,28 +1,29 @@
 Vue.component("table-api", {
     props: ["peliculas"],
     template: `
-         <table class="table table-striped">
-            <thead>
-                <tr>
-                   <th>imdbID</th>
-                   <th>Title</th>
-                   <th>Type</th>
-                   <th>Year</th>
-                   <th>Poster</th>
-                </tr>    
-            </thead>
-            <tbody>
-                <tr v-for="pelicula in peliculas">
-                    <td>{{pelicula.imdbID}}</td>
-                    <td>{{pelicula.Title}}</td>
-                    <td>{{pelicula.Type}}</td>
-                    <td>{{pelicula.Year}}</td>
-                    <td>
-                        <img v-bind:src="pelicula.Poster" height="150px" width="100px" alt="">
-                    </td>
-                </tr>
+            <table class="table table-striped">
+                <thead>
+                   <tr>
+                        <th>imdbID</th>
+                        <th>Title</th>
+                        <th>Type</th>
+                        <th>Year</th>
+                        <th>Poster</th>
+                    </tr>
+                </thead>
+                <tbody>
+                   <tr v-for="pelicula in peliculas">
+                            <td>{{pelicula.imdbID}}</td>
+                            <td>{{pelicula.Title}}</td>
+                            <td>{{pelicula.Type}}</td>
+                            <td>{{pelicula.Year}}</td>
+                            <td>
+                                <img v-bind:src="pelicula.Poster" height="150px" width="100px" alt="">
+                            </td>
+                    </tr>
             </tbody>
-         </table>
+            </table>
+            
     `
 });
 
