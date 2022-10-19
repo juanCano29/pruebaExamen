@@ -14,7 +14,7 @@ new Vue({
     peliculasDB: []
   },
   mounted() {
-    this.llenarTablaDB(1)
+    this.llenarTablaDB(1);
   },
   methods: {
     // logica de las tablas
@@ -43,7 +43,7 @@ new Vue({
 
     },
     llenarTablaDB(noPagina) {
-      fetch("routes/allPeliculas.php", {
+      fetch("routes/orderbyimdbID.php", {
         method: 'POST'
       })
         .then(async response => {
@@ -140,5 +140,7 @@ new Vue({
     isActive(noPagina) {
       return noPagina == this.paginaActual ? 'active' : ''
     },
+    // Logica orden de lista
+
   }
 })
