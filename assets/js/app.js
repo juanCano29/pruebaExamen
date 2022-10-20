@@ -81,7 +81,7 @@ new Vue({
                     this.peliculasDB = data
                     this.resultadoCantidad = this.peliculasDB.length
                     this.paginaActual = noPagina
-                    let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina
+                    let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina;
                     let fin = noPagina * this.elementosPorPagina
                     this.datosPaginados = this.peliculasDB.slice(ini, fin)
                 }).catch(error => {
@@ -106,6 +106,7 @@ new Vue({
         },
 
         buscarPorTitle() {
+
             const data = {
                 'Title': this.inputTitle
             }
@@ -170,6 +171,115 @@ new Vue({
             return noPagina == this.paginaActual ? 'active' : ''
         },
         // Logica orden de lista
-
+        getOrderbyimdbID(tipo){
+            const idAsc = document.getElementById('ordera-imdbid');
+            const idDesc = document.getElementById('orderd-imdbid');
+            if(tipo === 'desc'){
+                idAsc.classList.remove('ocultar');
+                idDesc.classList.add('ocultar');
+            }
+            else if (tipo === 'asc'){
+                idAsc.classList.add('ocultar');
+                idDesc.classList.remove('ocultar');
+            }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyimdbID.php', {
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then(async response => {
+               this.datosPaginados = [];
+               const data = await response.json();
+               this.peliculasDB = data;
+               this.datosPaginados = data
+               this.resultadoCantidad = this.peliculasDB.length;
+           });
+        },
+        getOrderbyTitle(tipo){
+           const titleAsc = document.getElementById('ordera-title') ;
+           const titleDesc = document.getElementById('orderd-title');
+           if(tipo === 'desc'){
+               titleDesc.classList.add('ocultar');
+               titleAsc.classList.remove('ocultar');
+           }
+           else if (tipo === 'asc'){
+               titleAsc.classList.add('ocultar');
+               titleDesc.classList.remove('ocultar');
+           }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyTitle.php',{
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then(async response => {
+               this.datosPaginados = [];
+               const data = await response.json();
+               this.peliculasDB = data;
+               this.datosPaginados = data
+               this.resultadoCantidad = this.peliculasDB.length;
+            }).catch((error) => {
+                console.log('Error: ', error)
+            })
+        },
+        getOrderbyType(tipo){
+            const typeAsc = document.getElementById('ordera-type') ;
+            const typeDesc = document.getElementById('orderd-type');
+            if(tipo === 'desc'){
+                typeDesc.classList.add('ocultar');
+                typeAsc.classList.remove('ocultar');
+            }
+            else if (tipo === 'asc'){
+                typeAsc.classList.add('ocultar');
+                typeDesc.classList.remove('ocultar');
+            }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyType.php',{
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then( async response => {
+               this.datosPaginados = [];
+               const data = await response.json();
+               this.peliculasDB = data;
+               this.datosPaginados = data
+               this.resultadoCantidad = this.peliculasDB.length;
+            }).catch((error) => {
+                console.log('Error: ', error)
+            })
+        },
+        getOrderbyYear(tipo){
+            const yearAsc = document.getElementById('ordera-year') ;
+            const yearDesc = document.getElementById('orderd-year');
+            if(tipo === 'desc'){
+                yearDesc.classList.add('ocultar');
+                yearAsc.classList.remove('ocultar');
+            }
+            else if (tipo === 'asc'){
+                yearAsc.classList.add('ocultar');
+                yearDesc.classList.remove('ocultar');
+            }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyYear.php',{
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then(async response => {
+               this.datosPaginados = [];
+               const data = await response.json();
+               this.peliculasDB = data;
+               this.datosPaginados = data
+               this.resultadoCantidad = this.peliculasDB.length;
+            }).catch((error) => {
+                console.log('Error: ', error)
+            })
+        }
     }
 })

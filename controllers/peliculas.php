@@ -68,25 +68,25 @@ class Peliculas
 
     public static function get_orderbyAsc_Type()
     {
-        $peliculas = Pelicula::orderBy("Type", 'ASC')->get();
+        $peliculas = Pelicula::orderBy("Typep", 'ASC')->get();
         return $peliculas;
     }
 
     public static function get_orderbyDesc_Type()
     {
-        $peliculas = Pelicula::orderBy("Type", 'DESC')->get();
+        $peliculas = Pelicula::orderBy("Typep", 'DESC')->get();
         return $peliculas;
     }
 
     public static function get_orderbyAsc_Year()
     {
-        $peliculas = Pelicula::orderBy("Year", 'ASC')->get();
+        $peliculas = Pelicula::orderBy("Yearp", 'ASC')->get();
         return $peliculas;
     }
 
     public static function get_orderbyDesc_Year()
     {
-        $peliculas = Pelicula::orderBy("Year", 'DESC')->get();
+        $peliculas = Pelicula::orderBy("Yearp", 'DESC')->get();
         return $peliculas;
     }
 }

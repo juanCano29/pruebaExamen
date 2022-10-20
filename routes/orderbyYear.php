@@ -4,5 +4,12 @@ require "../vendor/autoload.php";
 use Models\Database;
 new Database();
 use Controllers\Peliculas;
-$peliculas = Peliculas::get_orderbyDesc_Year();
-return $peliculas;
+$data = file_get_contents('php://input');
+$data = json_decode($data, true);
+if($data['type'] == 'desc'){
+    $peliculas = Peliculas::get_orderbyDesc_Year();
+}
+else if ($data['type'] == 'asc'){
+    $peliculas = Peliculas::get_orderbyAsc_Year();
+}
+echo $peliculas;
