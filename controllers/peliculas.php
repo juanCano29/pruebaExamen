@@ -12,7 +12,7 @@ class Peliculas
         return $pelicula;
     }
 
-    public static function get__peliculas()
+    public static function get_all_peliculas()
     {
         $peliculas = Pelicula::all();
         return $peliculas;
