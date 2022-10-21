@@ -68,6 +68,7 @@ new Vue({
             }).then(async response => {
                 this.llenarTablaDB(1)
             }).catch(error => {
+                console.log("Error: ", error);
             })
 
         },
@@ -81,7 +82,7 @@ new Vue({
                     this.peliculasDB = data
                     this.resultadoCantidad = this.peliculasDB.length
                     this.paginaActual = noPagina
-                    let ini = noPagina * this.elementosPorPagina - this.elementosPorPagina;
+                    let ini = (noPagina * this.elementosPorPagina) - this.elementosPorPagina;
                     let fin = noPagina * this.elementosPorPagina
                     this.datosPaginados = this.peliculasDB.slice(ini, fin)
                 }).catch(error => {
@@ -102,6 +103,7 @@ new Vue({
                 this.resultadoCantidad = this.datosPaginados.length
 
             }).catch(error => {
+                console.log('Error: ', error)
             })
         },
 
@@ -118,7 +120,7 @@ new Vue({
                 this.datosPaginados = data
                 this.resultadoCantidad = this.datosPaginados.length
             }).catch(error => {
-
+                console.log('Error: ', error);
             })
         },
         buscarPorType() {
@@ -133,7 +135,7 @@ new Vue({
                 this.datosPaginados = data
                 this.resultadoCantidad = this.datosPaginados.length
             }).catch(error => {
-
+                console.log('Error', error);
             })
         },
         buscarPorYear() {
@@ -148,7 +150,7 @@ new Vue({
                 this.datosPaginados = data
                 this.resultadoCantidad = this.datosPaginados.length
             }).catch(error => {
-
+                console.log('Error: ', error);
             })
         },
         // Logica Paginado
