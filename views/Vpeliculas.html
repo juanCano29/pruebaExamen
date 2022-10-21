@@ -81,9 +81,9 @@
             <div class=" col-md-1">
                 <select class="form-select justify-content-end" v-model="elementosPorPagina"
                         aria-label="Default select example">
-                    <option v-on:click="llenarTablaDB(1)">10</option>
-                    <option v-on:click="llenarTablaDB(1)">30</option>
-                    <option v-on:click="llenarTablaDB(1)">50</option>
+                    <option v-on:click="llenarTablaDB">10</option>
+                    <option v-on:click="llenarTablaDB">30</option>
+                    <option v-on:click="llenarTablaDB">50</option>
                 </select>
             </div>
             <nav aria-label="Page navigation example" class="col-md">
@@ -91,7 +91,7 @@
                     <li class="page-item" v-on:click="getPreviousPage()">
                         <a class="page-link" href="#">Anterior</a>
                     </li>
-                    <li v-for="pagina in totalPaginas()" v-on:click="llenarTablaDB(pagina)"
+                    <li v-for="pagina in totalPaginas()" v-on:click="PaginaActuala(pagina)"
                         v-bind:class="isActive(pagina)"
                         class="page-item">
                         <a class="page-link" href="#">{{pagina}}</a>

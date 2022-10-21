@@ -23,10 +23,8 @@ Vue.component("table-api", {
                     </tr>
             </tbody>
             </table>
-            
     `
 });
-
 new Vue({
     el: '#buscar',
     data: {
@@ -43,7 +41,7 @@ new Vue({
         peliculasDB: []
     },
     mounted() {
-        this.llenarTablaDB(1);
+        this.llenarTablaDB();
     },
     methods: {
         // logica de las tablas
@@ -66,28 +64,31 @@ new Vue({
                 body: JSON.stringify(this.peliculas)
 
             }).then(async response => {
-                this.llenarTablaDB(1)
+                this.llenarTablaDB();
             }).catch(error => {
                 console.log("Error: ", error);
             })
 
         },
-        llenarTablaDB(noPagina) {
+        llenarTablaDB() {
             fetch("routes/allPeliculas.php", {
                 method: 'POST'
             })
                 .then(async response => {
                     const data = await response.json()
-                    this.datosPaginados = []
                     this.peliculasDB = data
                     this.resultadoCantidad = this.peliculasDB.length
-                    this.paginaActual = noPagina
-                    let ini = (noPagina * this.elementosPorPagina) - this.elementosPorPagina;
-                    let fin = noPagina * this.elementosPorPagina
-                    this.datosPaginados = this.peliculasDB.slice(ini, fin)
+                    this.PaginaActuala(1);
                 }).catch(error => {
                 console.log("Error ", error)
             })
+        },
+        PaginaActuala(onPagina){
+            this.datosPaginados = [];
+            this.paginaActual = onPagina;
+            let ini = (onPagina * this.elementosPorPagina) - this.elementosPorPagina;
+            let fin = onPagina * this.elementosPorPagina
+            this.datosPaginados = this.peliculasDB.slice(ini, fin)
         },
         // Logica de los filtros
         buscarPorimdbID() {
@@ -98,10 +99,10 @@ new Vue({
                 method: "POST",
                 body: JSON.stringify(data)
             }).then(async response => {
-                const data = await response.json()
-                this.datosPaginados = data
-                this.resultadoCantidad = this.datosPaginados.length
-
+                const data = await response.json();
+                this.peliculasDB = data;
+                this.resultadoCantidad = this.peliculasDB.length;
+                this.PaginaActuala(1);
             }).catch(error => {
                 console.log('Error: ', error)
             })
@@ -117,8 +118,9 @@ new Vue({
                 body: JSON.stringify(data)
             }).then(async response => {
                 const data = await response.json()
-                this.datosPaginados = data
-                this.resultadoCantidad = this.datosPaginados.length
+                this.peliculasDB = data;
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(1);
             }).catch(error => {
                 console.log('Error: ', error);
             })
@@ -131,9 +133,10 @@ new Vue({
                 method: 'POST',
                 body: JSON.stringify(data)
             }).then(async response => {
-                const data = await response.json()
-                this.datosPaginados = data
-                this.resultadoCantidad = this.datosPaginados.length
+                const data = await response.json();
+                this.peliculasDB = data;
+                this.resultadoCantidad = this.peliculasDB.length;
+                this.PaginaActuala(1);
             }).catch(error => {
                 console.log('Error', error);
             })
@@ -147,8 +150,9 @@ new Vue({
                 body: JSON.stringify(data)
             }).then(async response => {
                 const data = await response.json()
-                this.datosPaginados = data
-                this.resultadoCantidad = this.datosPaginados.length
+                this.peliculasDB = data
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(1);
             }).catch(error => {
                 console.log('Error: ', error);
             })
@@ -161,13 +165,13 @@ new Vue({
             if (this.paginaActual > 1) {
                 this.paginaActual--
             }
-            this.llenarTablaDB(this.paginaActual)
+            this.PaginaActuala(this.paginaActual)
         },
         getNextPage() {
             if (this.paginaActual < this.totalPaginas()) {
                 this.paginaActual++
             }
-            this.llenarTablaDB(this.paginaActual)
+            this.PaginaActuala(this.paginaActual)
         },
         isActive(noPagina) {
             return noPagina == this.paginaActual ? 'active' : ''
@@ -192,11 +196,10 @@ new Vue({
                 body: JSON.stringify(data)
             })
            .then(async response => {
-               this.datosPaginados = [];
-               const data = await response.json();
-               this.peliculasDB = data;
-               this.datosPaginados = data
-               this.resultadoCantidad = this.peliculasDB.length;
+                const data = await response.json()
+                this.peliculasDB = data
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(this.paginaActual);
            });
         },
         getOrderbyTitle(tipo){
@@ -218,11 +221,10 @@ new Vue({
                 body: JSON.stringify(data)
             })
            .then(async response => {
-               this.datosPaginados = [];
-               const data = await response.json();
-               this.peliculasDB = data;
-               this.datosPaginados = data
-               this.resultadoCantidad = this.peliculasDB.length;
+                const data = await response.json()
+                this.peliculasDB = data
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(this.paginaActual);
             }).catch((error) => {
                 console.log('Error: ', error)
             })
@@ -246,11 +248,10 @@ new Vue({
                 body: JSON.stringify(data)
             })
            .then( async response => {
-               this.datosPaginados = [];
-               const data = await response.json();
-               this.peliculasDB = data;
-               this.datosPaginados = data
-               this.resultadoCantidad = this.peliculasDB.length;
+               const data = await response.json()
+               this.peliculasDB = data
+               this.resultadoCantidad = this.peliculasDB.length
+               this.PaginaActuala(this.paginaActual);
             }).catch((error) => {
                 console.log('Error: ', error)
             })
@@ -274,11 +275,10 @@ new Vue({
                 body: JSON.stringify(data)
             })
            .then(async response => {
-               this.datosPaginados = [];
-               const data = await response.json();
-               this.peliculasDB = data;
-               this.datosPaginados = data
-               this.resultadoCantidad = this.peliculasDB.length;
+               const data = await response.json()
+               this.peliculasDB = data
+               this.resultadoCantidad = this.peliculasDB.length
+               this.PaginaActuala(this.paginaActual);
             }).catch((error) => {
                 console.log('Error: ', error)
             })
