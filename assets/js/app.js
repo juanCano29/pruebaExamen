@@ -14,7 +14,7 @@ Vue.component("table-api", {
                     </tr>
                 </thead>
                 <tbody>
-                   <tr  >
+                   <tr v-if="peliculas.Response === 'True'">
                             <td>{{peliculas.imdbID}}</td>
                             <td>{{peliculas.Title}}</td>
                             <td>{{peliculas.Type}}</td>
@@ -25,7 +25,7 @@ Vue.component("table-api", {
                                 <img v-bind:src="peliculas.Poster" height="150px" width="100px" alt="">
                             </td>
                     </tr>
-            </tbody>
+                </tbody>
             </table>
     `
 });
@@ -44,7 +44,7 @@ new Vue({
         paginaActual: 1,
         datosPaginados: [],
         peliculas: {},
-        peliculasDB: []
+        peliculasDB: [],
     },
     mounted() {
         this.llenarTablaDB();
