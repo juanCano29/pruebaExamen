@@ -54,6 +54,16 @@
                     <a class="fa fa-angle-up ocultar" title="Ascendente" @click="getOrderbyYear('asc')" id="ordera-year"  style="text-decoration: none; color: white; font-size: 25px;;"></a>
                     <a class="fa fa-angle-down " title="Descendente" @click="getOrderbyYear('desc')" id="orderd-year"  style="text-decoration: none; color: white; font-size: 25px;"></a>
                 </th>
+                <th>
+                    Writer
+                    <a class="fa fa-angle-up ocultar" title="Ascendente" @click="getOrderbyWriter('asc')" id="ordera-writer"  style="text-decoration: none; color: white; font-size: 25px;;"></a>
+                    <a class="fa fa-angle-down " title="Descendente" @click="getOrderbyWriter('desc')" id="orderd-writer"  style="text-decoration: none; color: white; font-size: 25px;"></a>
+                </th>
+                <th>
+                    Director
+                    <a class="fa fa-angle-up ocultar" title="Ascendente" @click="getOrderbyDirector('asc')" id="ordera-director"  style="text-decoration: none; color: white; font-size: 25px;;"></a>
+                    <a class="fa fa-angle-down " title="Descendente" @click="getOrderbyDirector('desc')" id="orderd-director"  style="text-decoration: none; color: white; font-size: 25px;"></a>
+                </th>
                 <th>Poster</th>
             </tr>
             </thead>
@@ -63,6 +73,8 @@
                 <td><input v-model="inputTitle" v-on:keyup="buscarPorTitle" class="form-control"></td>
                 <td><input v-model="inputType" v-on:keyup="buscarPorType" class="form-control"></td>
                 <td><input v-model="inputYear" v-on:keyup="buscarPorYear" class="form-control"></td>
+                <td><input v-model="inputWriter" v-on:keyup="buscarPorWriter" class="form-control"></td>
+                <td><input v-model="inputDirector" v-on:keyup="buscarPorDirector" class="form-control"></td>
                 <td></td>
             </tr>
             <tr v-for="peliculadb in datosPaginados ">
@@ -70,6 +82,8 @@
                 <td>{{peliculadb.Title}}</td>
                 <td>{{peliculadb.Typep}}</td>
                 <td>{{peliculadb.Yearp}}</td>
+                <td>{{peliculadb.Writer}}</td>
+                <td>{{peliculadb.Director}}</td>
                 <td>
                     <img v-bind:src="peliculadb.Poster" height="150px" width="100px">
                 </td>

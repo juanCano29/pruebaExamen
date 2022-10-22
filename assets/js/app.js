@@ -8,17 +8,21 @@ Vue.component("table-api", {
                         <th>Title</th>
                         <th>Type</th>
                         <th>Year</th>
+                        <th>Writer</th>
+                        <th>Director</th>
                         <th>Poster</th>
                     </tr>
                 </thead>
                 <tbody>
-                   <tr v-for="pelicula in peliculas">
-                            <td>{{pelicula.imdbID}}</td>
-                            <td>{{pelicula.Title}}</td>
-                            <td>{{pelicula.Type}}</td>
-                            <td>{{pelicula.Year}}</td>
+                   <tr  >
+                            <td>{{peliculas.imdbID}}</td>
+                            <td>{{peliculas.Title}}</td>
+                            <td>{{peliculas.Type}}</td>
+                            <td>{{peliculas.Year}}</td>
+                            <td>{{peliculas.Writer}}</td>
+                            <td>{{peliculas.Director}}</td>
                             <td>
-                                <img v-bind:src="pelicula.Poster" height="150px" width="100px" alt="">
+                                <img v-bind:src="peliculas.Poster" height="150px" width="100px" alt="">
                             </td>
                     </tr>
             </tbody>
@@ -33,11 +37,13 @@ new Vue({
         inputTitle: "",
         inputType: "",
         inputYear: "",
+        inputWriter: "",
+        inputDirector: "",
         elementosPorPagina: 10,
         resultadoCantidad: 0,
         paginaActual: 1,
         datosPaginados: [],
-        peliculas: [],
+        peliculas: {},
         peliculasDB: []
     },
     mounted() {
@@ -46,10 +52,10 @@ new Vue({
     methods: {
         // logica de las tablas
         buscarPelicula: function () {
-            fetch("https://www.omdbapi.com/?apikey=e85fe802&s=" + this.name)
+            fetch("https://www.omdbapi.com/?apikey=e85fe802&t=" + this.name)
                 .then(async response => {
-                    const data = await response.json()
-                    this.peliculas = data["Search"]
+                    const data = await response.json();
+                    this.peliculas = data;
                 })
 
                 .catch(error => {
@@ -146,6 +152,38 @@ new Vue({
                 'Year': this.inputYear
             }
             fetch("routes/findforYear.php", {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).then(async response => {
+                const data = await response.json()
+                this.peliculasDB = data
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(1);
+            }).catch(error => {
+                console.log('Error: ', error);
+            })
+        },
+        buscarPorWriter(){
+            const data = {
+                'Writer': this.inputWriter
+            }
+            fetch("routes/findforWriter.php", {
+                method: 'POST',
+                body: JSON.stringify(data)
+            }).then(async response => {
+                const data = await response.json()
+                this.peliculasDB = data
+                this.resultadoCantidad = this.peliculasDB.length
+                this.PaginaActuala(1);
+            }).catch(error => {
+                console.log('Error: ', error);
+            })
+        },
+        buscarPorDirector(){
+            const data = {
+                'Director': this.inputDirector
+            }
+            fetch("routes/findforDirector.php", {
                 method: 'POST',
                 body: JSON.stringify(data)
             }).then(async response => {
@@ -271,6 +309,60 @@ new Vue({
                 type: tipo
             };
             fetch('routes/orderbyYear.php',{
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then(async response => {
+               const data = await response.json()
+               this.peliculasDB = data
+               this.resultadoCantidad = this.peliculasDB.length
+               this.PaginaActuala(this.paginaActual);
+            }).catch((error) => {
+                console.log('Error: ', error)
+            })
+        },
+        getOrderbyWriter(tipo){
+            const writerAsc = document.getElementById('ordera-writer') ;
+            const writerDesc = document.getElementById('orderd-writer');
+            if(tipo === 'desc'){
+                writerDesc.classList.add('ocultar');
+                writerAsc.classList.remove('ocultar');
+            }
+            else if (tipo === 'asc'){
+                writerAsc.classList.add('ocultar');
+                writerDesc.classList.remove('ocultar');
+            }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyWriter.php',{
+                method: 'POST',
+                body: JSON.stringify(data)
+            })
+           .then(async response => {
+               const data = await response.json()
+               this.peliculasDB = data
+               this.resultadoCantidad = this.peliculasDB.length
+               this.PaginaActuala(this.paginaActual);
+            }).catch((error) => {
+                console.log('Error: ', error)
+            })
+        },
+         getOrderbyDirector(tipo){
+            const directorAsc = document.getElementById('ordera-director') ;
+            const directorDesc = document.getElementById('orderd-director');
+            if(tipo === 'desc'){
+                directorDesc.classList.add('ocultar');
+                directorAsc.classList.remove('ocultar');
+            }
+            else if (tipo === 'asc'){
+                directorAsc.classList.add('ocultar');
+                directorDesc.classList.remove('ocultar');
+            }
+            const data = {
+                type: tipo
+            };
+            fetch('routes/orderbyDirector.php',{
                 method: 'POST',
                 body: JSON.stringify(data)
             })

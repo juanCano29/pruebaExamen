@@ -6,8 +6,6 @@
    use Controllers\Peliculas;
    $data = file_get_contents('php://input');
    $data = json_decode($data, true);
-   foreach ($data as $peliculas) {
-      $save = Peliculas::create_pelicula($peliculas["imdbID"], $peliculas["Title"], $peliculas["Type"], $peliculas["Year"], $peliculas["Poster"]);
-   } 
+   $save = Peliculas::create_pelicula($data["imdbID"], $data["Title"], $data["Type"], $data["Year"], $data["Writer"], $data["Director"], $data["Poster"]);
    return $save;
 ?>

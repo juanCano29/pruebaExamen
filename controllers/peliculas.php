@@ -6,9 +6,9 @@ use Models\pelicula;
 
 class Peliculas
 {
-    public static function create_pelicula($imdbID, $Title, $Typep, $Yearp, $Poster)
+    public static function create_pelicula($imdbID, $Title, $Typep, $Yearp, $Writer, $Director, $Poster)
     {
-        $pelicula = Pelicula::create(["imdbID" => $imdbID, "Title" => $Title, "Typep" => $Typep, "Yearp" => $Yearp, "Poster" => $Poster]);
+        $pelicula = Pelicula::create(["imdbID" => $imdbID, "Title" => $Title, "Typep" => $Typep, "Yearp" => $Yearp, "Writer" => $Writer, "Director" => $Director, "Poster" => $Poster]);
         return $pelicula;
     }
 
@@ -39,6 +39,14 @@ class Peliculas
     public static function get_whereLike_Year($Yearp)
     {
         $peliculas = Pelicula::where('Yearp', 'like', '%' . $Yearp . '%')->get();
+        return $peliculas;
+    }
+    public static function get_whereLike_Writer($Writer){
+        $peliculas = Pelicula::where('Writer', 'like', '%' . $Writer . '%')->get();
+        return $peliculas;
+    }
+    public static function get_whereLike_Director($Director){
+        $peliculas = Pelicula::where('Director', 'like', '%' . $Director . '%')->get();
         return $peliculas;
     }
 
@@ -87,6 +95,28 @@ class Peliculas
     public static function get_orderbyDesc_Year()
     {
         $peliculas = Pelicula::orderBy("Yearp", 'DESC')->get();
+        return $peliculas;
+    }
+    public static function get_orderbyAsc_Writer()
+    {
+        $peliculas = Pelicula::orderBy("Writer", 'ASC')->get();
+        return $peliculas;
+    }
+
+    public static function get_orderbyDesc_Writer()
+    {
+        $peliculas = Pelicula::orderBy("Writer", 'DESC')->get();
+        return $peliculas;
+    }
+    public static function get_orderbyAsc_Director()
+    {
+        $peliculas = Pelicula::orderBy("Director", 'ASC')->get();
+        return $peliculas;
+    }
+
+    public static function get_orderbyDesc_Director()
+    {
+        $peliculas = Pelicula::orderBy("Director", 'DESC')->get();
         return $peliculas;
     }
 }
